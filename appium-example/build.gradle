@@ -1,0 +1,33 @@
+plugins {
+    id 'java'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    javaClient = '8.2.0'
+    cucumber = '7.8.0'
+    allure = '2.19.0'
+    selenium = '4.4.0'
+}
+
+dependencies {
+    implementation "io.appium:java-client:$javaClient"
+    implementation "io.cucumber:cucumber-testng:$cucumber"
+    implementation "io.cucumber:cucumber-java:$cucumber"
+    testImplementation "io.cucumber:cucumber-picocontainer:$cucumber"
+    implementation "io.qameta.allure:allure-cucumber7-jvm:$allure"
+    implementation "org.seleniumhq.selenium:selenium-java:$selenium"
+}
+
+test {
+    useTestNG()
+    scanForTestClasses = false
+    systemProperties(System.properties)
+    jvmArgs(["-Ddataproviderthreadcount=${threads}"])
+}
